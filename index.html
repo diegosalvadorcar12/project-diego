@@ -23,9 +23,13 @@
       <div class="sub" id="gateText">Complete the quest. Claim the XP.</div>
       <div class="buttons">
         <button class="btn yes" id="yesBtn">Quest Complete (+25 XP)</button>
-        <button class="btn min" id="minBtn">Minimum Quest Complete (+10 XP)</button>
+        <button class="btn min" id="minBtn">Body Refinement Quest (+15 XP)</button>
         <button class="btn rest" id="restBtn">Rest Day (0 XP)</button>
         <button class="btn no" id="noBtn">Missed Today (-15 XP)</button>
+        <div class="bonusGrid">
+          <button class="btn ghost" id="elixirBtn">Growth Elixir (+5 XP)</button>
+          <button class="btn ghost" id="feastBtn">Growth Feast (+5 XP)</button>
+        </div>
       </div>
     </section>
 
@@ -55,7 +59,7 @@
     <section class="card workout">
       <h3 id="workoutTitle">Today’s workout</h3>
       <div id="workoutList"></div>
-      <p class="small">Rule: if embarrassed/tired, do the minimum version. Keeping the promise matters more than perfect reps.</p>
+      <p class="small">Rule: choose the quest that matches today: training, sports, intentional rest, or honest missed day. Keep the log real.</p>
     </section>
 
     <section class="card wisdom">
@@ -63,14 +67,6 @@
       <div class="wisdomText" id="wisdomText"></div>
     </section>
 
-    <section class="card wisdom">
-      <h3>Bonus Cultivation</h3>
-      <p class="small">Optional boosts. These add XP only — no streak, done, or missed changes.</p>
-      <div class="bonusGrid">
-        <button class="btn ghost" id="elixirBtn">Growth Elixir (+5 XP)</button>
-        <button class="btn ghost" id="bodyRefinementBtn">Body Refinement (+15 XP)</button>
-      </div>
-    </section>
 
     <section class="card">
       <div class="quote" id="younger">One day at a time.</div>
@@ -222,7 +218,20 @@ function normalizeState(raw){
 }
 function load(){try{return normalizeState(JSON.parse(localStorage.getItem(KEY)||'null'))}catch(e){return defaultState()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function dateKey(d=new Date()){return d.toISOString().slice(0,10)}
+function dateKey(d=new Date()){
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function recomputeStreak(){
+  const keys=Object.keys(state.days).sort();
+  let streak=0;
+  for(const k of keys){
+    const status=state.days[k];
+    if(status==='yes'||status==='min')streak++;
+    else if(status==='no'||status==='auto-missed')streak=0;
+  }
+  state.streak=streak;
+}
 function displayDate(dateStr){const d=new Date(dateStr+'T12:00:00');return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}
 function level(){return Math.min(MAX_LEVEL,Math.floor(Math.max(0,state.xp)/100)+1)}
 function xpInto(){return level()>=MAX_LEVEL?100:((state.xp%100)+100)%100}
@@ -250,10 +259,10 @@ function applyForDate(k,action,xp,label,opts={}){
   const beforeRealm=realmForLevel(beforeLevel).major;
   state.xp=Math.max(0,Math.min(MAX_XP,state.xp+xp));
   state.days[k]=action;
-  if(action==='yes'||action==='min'){state.done++; state.streak++;}
-  else if(action==='no'){state.missed++; state.streak=0;}
-  else if(action==='rest'){}
+  if(action==='yes'||action==='min')state.done++;
+  else if(action==='no')state.missed++;
   state.log.unshift(`${k}: ${label} (${xp>0?'+':''}${xp} XP)`);
+  recomputeStreak();
   save();
   const afterLevel=level();
   const afterRealm=realmForLevel(afterLevel);
@@ -276,8 +285,9 @@ function reverseAutoMissed(k){
 }
 function fixDay(k,action){
   reverseAutoMissed(k);
-  if(state.days[k]){flash('That day is already logged.'); save(); render(); return;}
+  if(state.days[k]){recomputeStreak(); flash('That day is already logged.'); save(); render(); return;}
   applyForDate(k,action,action==='yes'?25:0,action==='yes'?'workout complete':'rest day',{force:true});
+  recomputeStreak();
 }
 function addBonus(kind,xp,label){
   const k=dateKey();
@@ -304,8 +314,8 @@ function missedPenalty(){
   const now=new Date(); let changed=false;
   if(!state.startDate){state.startDate=dateKey(now); save();}
   const start=state.startDate;
-  for(let i=1;i<=7;i++){let d=new Date(now); d.setDate(now.getDate()-i); const k=dateKey(d); if(k<start) continue; if(workouts[d.getDay()]&&!state.days[k]){state.days[k]='auto-missed'; state.xp=Math.max(0,state.xp-10); state.missed++; state.streak=0; state.log.unshift(`${k}: missed check-in (-10 XP)`); changed=true;}}
-  if(changed) save();
+  for(let i=1;i<=7;i++){let d=new Date(now); d.setDate(now.getDate()-i); const k=dateKey(d); if(k<start) continue; if(workouts[d.getDay()]&&!state.days[k]){state.days[k]='auto-missed'; state.xp=Math.max(0,state.xp-10); state.missed++; state.log.unshift(`${k}: missed check-in (-10 XP)`); changed=true;}}
+  if(changed){recomputeStreak(); save();}
 }
 function render(){
   const today=new Date(), k=dateKey(), w=isWorkoutDay(today), show=w||nextWorkout(today), lv=level(), realm=realmForLevel(lv), av=avatarForLevel(lv);
@@ -320,9 +330,9 @@ function render(){
   document.getElementById('wisdomText').textContent=dailyQuote();
   document.getElementById('log').textContent=state.log.slice(0,20).join('\n')||'No entries yet.';
   const bonusToday=(state.bonus&&state.bonus[k])||{};
-  const elixirBtn=document.getElementById('elixirBtn'), bodyBtn=document.getElementById('bodyRefinementBtn');
+  const elixirBtn=document.getElementById('elixirBtn'), feastBtn=document.getElementById('feastBtn');
   elixirBtn.disabled=!!bonusToday.elixir; elixirBtn.textContent=bonusToday.elixir?'Growth Elixir Claimed':'Growth Elixir (+5 XP)';
-  bodyBtn.disabled=!!bonusToday.bodyRefinement; bodyBtn.textContent=bonusToday.bodyRefinement?'Body Refinement Claimed':'Body Refinement (+15 XP)';
+  feastBtn.disabled=!!bonusToday.feast; feastBtn.textContent=bonusToday.feast?'Growth Feast Claimed':'Growth Feast (+5 XP)';
   renderFixList();
 }
 function renderFixList(){
@@ -346,25 +356,27 @@ function restoreData(file){
   reader.onload=()=>{
     try{
       const data=normalizeState(JSON.parse(reader.result));
-      if(confirm('Restore Project Diego data from this backup? Current data will be overwritten.')){localStorage.setItem(KEY,JSON.stringify(data));state=load();render();}
+      if(confirm('Restore Project Diego data from this backup? Current data will be overwritten.')){state=data;recomputeStreak();save();state=load();render();}
     }catch(e){alert('Could not restore backup. Please choose a valid Project Diego JSON file.');}
     document.getElementById('restoreFile').value='';
   };
   reader.readAsText(file);
 }
 document.getElementById('yesBtn').onclick=()=>apply('yes',25,'workout complete');
-document.getElementById('minBtn').onclick=()=>apply('min',10,'minimum workout complete');
+document.getElementById('minBtn').onclick=()=>apply('min',15,'body refinement quest complete');
 document.getElementById('restBtn').onclick=()=>apply('rest',0,'rest day');
 document.getElementById('noBtn').onclick=()=>apply('no',-15,'skipped');
 document.getElementById('elixirBtn').onclick=()=>addBonus('elixir',5,'Growth Elixir');
-document.getElementById('bodyRefinementBtn').onclick=()=>addBonus('bodyRefinement',15,'Body Refinement');
+document.getElementById('feastBtn').onclick=()=>addBonus('feast',5,'Growth Feast');
 document.getElementById('undoBtn').onclick=()=>{
   state=load(); const last=state.log.shift(); if(!last)return; const k=last.slice(0,10); const action=state.days[k];
   if(last.includes('Growth Elixir')){state.xp=Math.max(0,state.xp-5); if(state.bonus[k])delete state.bonus[k].elixir; save(); render(); return;}
+  if(last.includes('Growth Feast')){state.xp=Math.max(0,state.xp-5); if(state.bonus[k])delete state.bonus[k].feast; save(); render(); return;}
   if(last.includes('Body Refinement')){state.xp=Math.max(0,state.xp-15); if(state.bonus[k])delete state.bonus[k].bodyRefinement; save(); render(); return;}
   delete state.days[k];
-  if(last.includes('+25')) state.xp=Math.max(0,state.xp-25); if(last.includes('+10')) state.xp=Math.max(0,state.xp-10); if(last.includes('-15')) state.xp=Math.min(MAX_XP,state.xp+15); if(last.includes('-10')) state.xp=Math.min(MAX_XP,state.xp+10);
-  if(action==='yes'||action==='min'){state.done=Math.max(0,state.done-1); state.streak=0;} else if(action==='no'||action==='auto-missed'){state.missed=Math.max(0,state.missed-1); state.streak=0;}
+  if(last.includes('+25')) state.xp=Math.max(0,state.xp-25); if(last.includes('+15')) state.xp=Math.max(0,state.xp-15); if(last.includes('+10')) state.xp=Math.max(0,state.xp-10); if(last.includes('-15')) state.xp=Math.min(MAX_XP,state.xp+15); if(last.includes('-10')) state.xp=Math.min(MAX_XP,state.xp+10);
+  if(action==='yes'||action==='min')state.done=Math.max(0,state.done-1); else if(action==='no'||action==='auto-missed')state.missed=Math.max(0,state.missed-1);
+  recomputeStreak();
   save(); render();
 };
 document.getElementById('backupBtn').onclick=backupData;
