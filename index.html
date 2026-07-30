@@ -18,13 +18,13 @@
     <div class="top"><div class="brand">Project Diego</div><div class="pill" id="todayPill">Workout day</div></div>
 
     <section class="card hero" id="gateCard">
-      <div class="small">Building Project Diego every single day.</div>
-      <div class="question" id="question">Did you complete today’s workout?</div>
-      <div class="sub" id="gateText">Workout first. Gaming after.</div>
+      <div class="small">Becoming the best version of myself.</div>
+      <div class="question" id="question">Did you complete today’s daily quest?</div>
+      <div class="sub" id="gateText">Complete the quest. Claim the XP.</div>
       <div class="buttons">
-        <button class="btn yes" id="yesBtn">YES — Gaming Unlocked (+25 XP)</button>
-        <button class="btn min" id="minBtn">Minimum Workout Done (+10 XP)</button>
-        <button class="btn no" id="noBtn">NO — I skipped (-15 XP)</button>
+        <button class="btn yes" id="yesBtn">Quest Complete (+25 XP)</button>
+        <button class="btn min" id="minBtn">Minimum Quest Complete (+10 XP)</button>
+        <button class="btn no" id="noBtn">Missed Today (-15 XP)</button>
       </div>
     </section>
 
@@ -46,7 +46,7 @@
         <div class="modelViewport"><img id="avatarImg" src="assets/avatars/bronze-1.png" alt="Project Diego character model"><div class="modelBadge" id="modelBadge">Current Form</div></div>
         <div>
           <div class="trait" id="avatarName">Rookie Cultivator</div>
-          <p class="small" id="avatarText">The Beginning. Skinny, private, and just starting. No excuses. Only progress.</p>
+          <p class="small" id="avatarText">The Beginning. Private training arc. No excuses. Only progress.</p>
         </div>
       </div>
     </section>
@@ -63,7 +63,7 @@
     </section>
 
     <section class="card">
-      <div class="quote" id="younger">Earn the chill.</div>
+      <div class="quote" id="younger">One day at a time.</div>
     </section>
 
     <section class="card">
@@ -72,10 +72,10 @@
       <button class="btn ghost" id="undoBtn" style="margin-top:12px;width:100%">Undo last entry</button>
       <button class="btn ghost" id="resetBtn" style="margin-top:8px;width:100%">Reset app data</button>
     </section>
-    <div class="footer">Simple on purpose. Open this before gaming on Mon/Wed/Fri.</div>
+    <div class="footer">Side quests don't count. This is the main story.</div>
   </div>
 
-  <div class="modal" id="breakthrough"><div class="modalBox"><h2>Breakthrough</h2><p id="breakthroughText"></p><button class="btn yes" id="closeBreakthrough">Continue building Project Diego</button></div></div>
+  <div class="modal" id="breakthrough"><div class="modalBox"><h2>Breakthrough</h2><p id="breakthroughText"></p><button class="btn yes" id="closeBreakthrough">Continue the Path to the Peak</button></div></div>
   <div class="levelToast" id="levelToast">Level up</div>
 
 <script>
@@ -104,9 +104,62 @@ const quotes=[
 'Do what is easy and your life will be hard. Do what is hard and your life will become easy.',
 'Pay Future Diego first. Then enjoy current Diego without guilt.',
 'No workout, no queue.',
-'Earn the chill.',
 'The promise matters more than the perfect workout.',
 'Younger Diego is watching. Give him proof.'
+,"Becoming the best version of myself, one day at a time."
+,"Do not depend on anyone, neither me, nor anyone else. You must rely on yourself. After all, you have the power. -Zelda"
+,"Daily quests look small until the character transformation becomes obvious."
+,"Low level is not the problem. Staying AFK is."
+,"When motivation fades, let discipline continue cultivating."
+,"Endure today so your future self may stand undefeated."
+,"You don't need a perfect day. You need one completed quest."
+,"Low level is not the problem. Staying AFK is."
+,"Train today so future you has evidence, not excuses."
+,"Comfort preserves your current realm. Struggle unlocks the next."
+,"Discipline is the real XP."
+,"Your current realm is not your final form."
+,"Don't announce the transformation. Let the results speak."
+,"Your future self is not built by mood. He's built by repeated actions."
+,"One quest today. One stronger version tomorrow."
+,"You're not unlocking gaming. You're unlocking yourself."
+,"Today I step on grass; tomorrow I shall step on mountains and rivers!"
+,"The workout does not need to be legendary. It needs to be logged."
+,"Every session adds another layer to your foundation."
+,"Every session is a save point."
+,"Become the version you keep imagining."
+,"Complete the daily quest before entering the queue."
+,"Today's quest is small. The long-term reward is not."
+,"Do not grind the game while neglecting your own character."
+,"Do not live like an NPC in your own game."
+,"Nobody's convinced by your plans. They're convinced by your streak."
+,"You're not just doing this for today's XP. You're doing it so Future Diego doesn't have to start over."
+,"Pay Future Diego before entertaining current Diego."
+,"Younger Diego dreamed of this version of you. Keep building him."
+,"Do not betray tomorrow for an easier today."
+,"Keep the promise younger Diego made. Make younger Diego proud."
+,"Every workout honors the effort of past Diego. Past Diego started the climb. Finish it."
+,"Don't waste the progress already earned."
+,"You can suffer through the workout or suffer from never changing."
+,"You already know what must be done. Just do it."
+,"Get up. The work remains whether you complain or not."
+,"The next breakthrough isn't just for you—it's for every version of Diego that believed."
+,"You're not just doing this for today's XP. You're doing it so Future Diego doesn't have to start over."
+,"Although he started as the weakest, without a doubt, he will climb the steps towards the strongest. -Nie Li"
+,"Cultivation is an accumulation of every single day. If you try to rush it, your foundation will crumble. Only by steadily tempering your soul force day after day can you hope to withstand the pressure of higher realms. -Nie Li"
+,"Cultivation is not a race won by a single leap. It is a slow, steady march against the heavens. -Luo Zheng"
+,"Make younger Diego proud."
+,"You don't stop when you're tired, you stop when you're done. -Sung Jin Wo"
+,"Weakness is a choice. And I stopped choosing it. Pain became fuel. Doubt became fire. I stopped waiting for someone to save me, and started saving myself.” -Sung Jin Wo"
+,"Start as the weakest in the room. Leave as proof of what daily effort becomes."
+,"Rush the foundation and the whole structure cracks. Temper it daily instead."
+,"Steel isn't afraid of the hammer. Neither are you, if you want to stop being ordinary."
+,"No cultivator ascends in one leap. Just a long, steady march that never stops moving."
+,"The only cage that can actually hold you is the one built from your own doubt. Master your mind, and nothing else can."
+,"Step back today, and you owe two steps tomorrow. Keep walking, even through the hard ones."
+,"Let the excuses pile up. As long as you're still breathing, the path isn't closed."
+,"Anyone can borrow strength. Only you can build your own."
+,"No one is coming to level you up. You already have the power — use it."
+,"Weakness was a choice you kept making. Today, stop making it."
 ];
 const KEY='projectDiego.v2';
 const MAX_LEVEL=60;
@@ -125,6 +178,20 @@ const REALMS=[
   {slug:'deity',name:'Deity'},
   {slug:'emperor',name:'Emperor'}
 ];
+const TITLES={
+  bronze:{title:'Rookie Cultivator', text:'The Beginning. Private training arc. No excuses. Only progress.'},
+  silver:{title:'Disciplined Apprentice', text:'Building the habit. Small steps, real change. Stronger than yesterday, quietly.'},
+  gold:{title:'Iron Will Cultivator', text:"Focused mind. Steadier body. The grind is no longer optional — it's who you are."},
+  blackgold:{title:'Tempered Disciple', text:'No longer a random habit. This is identity now. Discipline, not motivation.'},
+  legend:{title:'Rising Legend', text:"People are starting to notice. You're not chasing consistency anymore — you have it."},
+  heavenlyfate:{title:'Fated Ascendant', text:'The routine chose you back. Some days are still hard. You show up anyway.'},
+  heavenlystar:{title:'Starbound Adept', text:"Sharper focus. Steadier hands. The old excuses don't even cross your mind."},
+  heavenlyaxis:{title:'Unshaken Axis', text:'Priorities first, always. Nothing moves you off course.'},
+  daoofdragon:{title:'Dragon-Blooded Cultivator', text:'Power with patience. Every session builds on the last — never against it.'},
+  martialancestor:{title:'Battle-Tested Ancestor', text:"Standards this high used to feel impossible. Now they're just Tuesday."},
+  deity:{title:'Half-Step Deity', text:'Composed. Relentless. The work speaks before you ever have to.'},
+  emperor:{title:'Sovereign Emperor', text:'Endgame discipline. The character model is real, because you made it real.'}
+};
 let state=load();
 function load(){return JSON.parse(localStorage.getItem(KEY)||'{"xp":0,"streak":0,"done":0,"missed":0,"log":[],"days":{},"lastMajorRealm":"Bronze"}')}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
@@ -142,17 +209,8 @@ function realmForLevel(lv){
 }
 function avatarForLevel(lv){
   const realm=realmForLevel(lv);
-  return {stage:`level-${lv}`,img:`assets/avatars/${realm.slug}-${realm.stars}.png`,name:realm.full,text:avatarTextForLevel(lv,realm)};
-}
-function avatarTextForLevel(lv,realm){
-  if(lv<=5)return 'The Beginning. Quiet, skinny, and private — but the promise starts here.';
-  if(lv<=10)return 'Silver discipline. The body and routine are starting to respond.';
-  if(lv<=15)return 'Gold momentum. Small workouts are becoming real identity proof.';
-  if(lv<=20)return 'Black Gold Discipline. Workout first, gaming after — no negotiation.';
-  if(lv<=30)return 'Heavenly consistency. The routine is no longer random motivation.';
-  if(lv<=40)return 'Axis control. Priorities first, chill earned, Future Diego gets paid.';
-  if(lv<=50)return 'Dragon path. Stronger form, stronger standards, stronger self-respect.';
-  return 'Emperor path. Endgame discipline — the character model is becoming real.';
+  const title=TITLES[realm.slug];
+  return {stage:`level-${lv}`,img:`assets/avatars/${realm.slug}-${realm.stars}.png`,name:title.title,text:title.text};
 }
 function isWorkoutDay(d=new Date()){return workouts[d.getDay()]}
 function nextWorkout(d=new Date()){for(let i=0;i<7;i++){let x=new Date(d);x.setDate(d.getDate()+i);if(workouts[x.getDay()])return workouts[x.getDay()]}}
@@ -177,7 +235,7 @@ function apply(action,xp,label){
     showLevelUp('Max Cultivation Reached');
   }
 }
-function showBreakthrough(realm){state.lastMajorRealm=realm; save(); document.getElementById('breakthroughText').textContent=`You broke through to ${realm}. New rank, new character form. Project Diego is being built.`; document.getElementById('breakthrough').classList.add('show');}
+function showBreakthrough(realm){state.lastMajorRealm=realm; save(); document.getElementById('breakthroughText').textContent=`You broke through to ${realm}. New realm reached. New character form unlocked.`; document.getElementById('breakthrough').classList.add('show');}
 function showLevelUp(label){const el=document.getElementById('levelToast'); el.textContent=`Level up: ${label}`; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2400);}
 function flash(msg){document.getElementById('gateText').textContent=msg;document.getElementById('gateCard').classList.add('shake');setTimeout(()=>document.getElementById('gateCard').classList.remove('shake'),300)}
 function missedPenalty(){
@@ -191,8 +249,8 @@ function render(){
   const today=new Date(), k=dateKey(), w=isWorkoutDay(today), show=w||nextWorkout(today), lv=level(), realm=realmForLevel(lv), av=avatarForLevel(lv);
   document.getElementById('todayPill').textContent=w?'Today is workout day':'Next: '+show.day;
   const logged=state.days[k];
-  document.getElementById('question').textContent= logged ? (logged==='yes'||logged==='min'?'Gaming unlocked.':'Gate failed today.') : (w?'Did you complete today’s workout?':'No workout today. Keep priorities first.');
-  document.getElementById('gateText').innerHTML= logged ? (logged==='yes'||logged==='min'?'<span class="unlocked">Enjoy guilt-free.</span>':'<span class="locked">Tomorrow: no zero day.</span>') : (w?'Workout first. Gaming after.':'If you want bonus XP, do a walk/shake/social action.');
+  document.getElementById('question').textContent= logged ? (logged==='yes'||logged==='min'?'Daily quest cleared.':'No XP earned today.') : (w?'Did you complete today’s daily quest?':'No main quest today.');
+  document.getElementById('gateText').innerHTML= logged ? (logged==='yes'||logged==='min'?'<span class="unlocked">XP claimed. Progress saved.</span>':'<span class="locked">The tavern\'s warm tonight. Just don\'t move in</span>') : (w?'Complete the quest. Claim the XP.':'Rest, eat, and prepare for the next training day.');
   document.getElementById('realm').innerHTML=realm.label; if(lv>=MAX_LEVEL){document.getElementById('realmSub').textContent='Max Cultivation Reached — Emperor V'; document.getElementById('xpFill').style.width='100%';} else {document.getElementById('realmSub').textContent=`${xpInto()} / 100 XP toward next level`; document.getElementById('xpFill').style.width=xpInto()+'%';}
   document.getElementById('streak').textContent=state.streak; document.getElementById('total').textContent=state.done; document.getElementById('missed').textContent=state.missed;
   document.getElementById('avatarWrap').className='avatarWrap '+av.stage; document.getElementById('avatarImg').src=av.img; document.getElementById('avatarName').textContent=av.name; document.getElementById('avatarText').textContent=av.text;
