@@ -166,7 +166,7 @@
         <button class="btn rest" id="restBtn"><span class="btnName">Stabilize Foundation</span><span class="btnXp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20c-4.5 0-8.5-2.2-9.5-6.5 3 0 5 1.2 6 2.4C7.8 12.6 9 8.6 12 5.5c3 3.1 4.2 7.1 3.5 10.4 1-1.2 3-2.4 6-2.4-1 4.3-5 6.5-9.5 6.5z"/></svg>0 XP</span></button>
         <button class="btn no" id="noBtn"><span class="btnName">Cultivation Interrupted</span><span class="btnXp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 9A9 9 0 0 1 9 20.6M3.5 15A9 9 0 0 1 15 3.4M14 3.5l-3 6 4 1.5-3.5 6"/></svg>-15 XP</span></button>
         <div class="bonusGrid">
-          <button class="btn elixir" id="elixirBtn"><span class="btnName">BONUS: Growth Elixir</span><span class="btnXp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.5h4M12 2.5v2.2M9.6 4.7h4.8c0 1.8-1.4 2.3-1.4 3.9 3 .9 5 3.4 5 6.4A6 6 0 0 1 12 21a6 6 0 0 1-6-6c0-3 2-5.5 5-6.4 0-1.6-1.4-2.1-1.4-3.9z"/></svg>+15 XP</span></button>
+          <button class="btn elixir" id="elixirBtn"><span class="btnName">BONUS: Growth Elixir</span><span class="btnXp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.5h4M12 2.5v2.2M9.6 4.7h4.8c0 1.8-1.4 2.3-1.4 3.9 3 .9 5 3.4 5 6.4A6 6 0 0 1 12 21a6 6 0 0 1-6-6c0-3 2-5.5 5-6.4 0-1.6-1.4-2.1-1.4-3.9z"/></svg>+5 XP</span></button>
           <button class="btn feast" id="feastBtn"><span class="btnName">BONUS: Growth Feast</span><span class="btnXp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5h18a9 9 0 0 1-18 0zM8.5 21h7M9.5 8c0-1.2 1-1.6 1-3.2M13.5 8c0-1.2 1-1.6 1-3.2"/></svg>+5 XP</span></button>
         </div>
       </div>
@@ -567,7 +567,7 @@ function render(){
   document.getElementById('yesBtn').classList.toggle('ready',!logged&&!!w);
   const bonusToday=(state.bonus&&state.bonus[k])||{};
   const elixirBtn=document.getElementById('elixirBtn'), feastBtn=document.getElementById('feastBtn');
-  elixirBtn.disabled=!!bonusToday.elixir; elixirBtn.innerHTML=`<span class="btnName">BONUS: Growth Elixir</span><span class="btnXp">${ICONS.gourd}${bonusToday.elixir?'Claimed':'+15 XP'}</span>`;
+  elixirBtn.disabled=!!bonusToday.elixir; elixirBtn.innerHTML=`<span class="btnName">BONUS: Growth Elixir</span><span class="btnXp">${ICONS.gourd}${bonusToday.elixir?'Claimed':'+5 XP'}</span>`;
   feastBtn.disabled=!!bonusToday.feast; feastBtn.innerHTML=`<span class="btnName">BONUS: Growth Feast</span><span class="btnXp">${ICONS.bowl}${bonusToday.feast?'Claimed':'+5 XP'}</span>`;
   renderFixList();
 }
@@ -603,11 +603,11 @@ gate('yesBtn','yes',25,'workout complete');
 gate('minBtn','min',15,'body refinement quest complete');
 gate('restBtn','rest',0,'stabilized foundation');
 gate('noBtn','no',-15,'cultivation interrupted');
-document.getElementById('elixirBtn').onclick=e=>{const b=e.currentTarget;if(addBonus('elixir',15,'Growth Elixir'))floatXP(b,15)};
+document.getElementById('elixirBtn').onclick=e=>{const b=e.currentTarget;if(addBonus('elixir',5,'Growth Elixir'))floatXP(b,5)};
 document.getElementById('feastBtn').onclick=e=>{const b=e.currentTarget;if(addBonus('feast',5,'Growth Feast'))floatXP(b,5)};
 document.getElementById('undoBtn').onclick=()=>{
   state=load(); const last=state.log.shift(); if(!last)return; const k=last.slice(0,10); const action=state.days[k];
-  if(last.includes('Growth Elixir')){state.xp=Math.max(0,state.xp-15); if(state.bonus[k])delete state.bonus[k].elixir; save(); render(); return;}
+  if(last.includes('Growth Elixir')){state.xp=Math.max(0,state.xp-5); if(state.bonus[k])delete state.bonus[k].elixir; save(); render(); return;}
   if(last.includes('Growth Feast')){state.xp=Math.max(0,state.xp-5); if(state.bonus[k])delete state.bonus[k].feast; save(); render(); return;}
   if(last.includes('Body Refinement')){state.xp=Math.max(0,state.xp-15); if(state.bonus[k])delete state.bonus[k].bodyRefinement; save(); render(); return;}
   delete state.days[k];
